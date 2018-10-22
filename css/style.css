@@ -1,0 +1,14 @@
+body,html{margin:0;box-sizing:border-box;}
+html{height: 100vh;width:100vw;}
+#autre{height: 70%;width: 100%;}
+#controlPanel{height: 30%;width: 100%;display:flex;flex-direction: row;justify-content: space-around;  align-items: center;}
+#logPanel{height: 100px;width: 500px;background-color:rgba(0,0,0,.1);}
+#globalBtn
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 300px;
+  background-color: purple;
+}
