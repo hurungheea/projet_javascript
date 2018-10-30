@@ -1,8 +1,26 @@
+@font-face
+{
+  font-family: "matrix";
+  src: local('./../font/matrix.ttf');
+}
+
 body,html{margin:0;box-sizing:border-box;}
 html{height: 100vh;width:100vw;}
 #autre{height: 70%;width: 100%;}
 #controlPanel{height: 30%;width: 100%;display:flex;flex-direction: row;justify-content: space-around;  align-items: center;}
-#logPanel{height: 100px;width: 500px;background-color:rgba(0,0,0,.1);}
+textarea
+{
+  color:rgb(0,230,0);
+  font-family: "matrix";
+  font-size: 11pt;
+  height: 150px;
+  width: 500px;
+  background-color:rgb(0,0,0);
+  overflow:hidden;
+  padding: 5px 25px;
+  resize:none;
+  border: 1px solid rgb(0,0,0);
+}
 #globalBtn
 {
   display: flex;
@@ -11,4 +29,10 @@ html{height: 100vh;width:100vw;}
   align-items: center;
   max-width: 300px;
   background-color: purple;
+}
+
+#requestBtn
+{
+  display: flex;
+  flex-wrap: nowrap;
 }
