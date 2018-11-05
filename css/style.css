@@ -6,10 +6,17 @@
 
 body,html{margin:0;box-sizing:border-box;}
 html{height: 100vh;width:100vw;}
+body
+{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
 #autre
 {
+  margin: 25px auto;
   height: 70vh;
-  width: 100vw;
   display:grid;
   grid-template-columns: 35vw 35vw;
   grid-template-rows: 35vh 35vh;
