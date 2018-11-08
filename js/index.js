@@ -16,17 +16,17 @@ window.onload = function()
     let port = new Port();
 
     let consoleArea = document.querySelector('.myConsole');
-    //consoleArea.attr('readOnly','true');
+    //consoleArea.readOnly = "true";
     consoleArea.scrollTop = consoleArea.scrollHeight;
 
     document.querySelector('.go').addEventListener("click",()=>
     {
-        consoleArea.textContent += " 6d6df8d6 ";
-        console.log(consoleArea);
+        consoleArea.innerHTML = " blbla" + "<br>" ;
+        console.log(consoleArea.innerHTML);
     },false);
-    
+
     $('.start').click(function()
-    { 
+    {
         interpreter.start();
         //consoleArea.value = "";
     });
