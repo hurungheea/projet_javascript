@@ -28,7 +28,7 @@ body
 .S2{grid-area: c; background-color: purple;}
 
 #controlPanel{height: 30%;width: 100%;display:flex;flex-direction: row;justify-content: space-around;  align-items: center;}
-.myConsole
+#myConsole
 {
   color:rgb(0,0,0);
   font-family: "matrix";
@@ -38,7 +38,6 @@ body
   padding: 16px;
   background-color:rgb(255,255,255);
   overflow:hidden;
-  resize:none;
   border: 1px solid rgb(0,0,0);
 }
 #globalBtn

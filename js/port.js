@@ -6,12 +6,12 @@ export class Port
         this.port = 8080;
     }
     // Retourne si le port est ouvert ou non
-    isOpen(p_open) 
+    isOpen() 
     {
         return this.open;
     }
     //Retroune quelle port est écouté
-    isListening(p_port)
+    isListening()
     {
         return this.port;
     }

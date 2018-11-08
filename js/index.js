@@ -1,6 +1,11 @@
 import { stateModel } from "./stateModel.js";
 import { Port } from "./port.js";
 
+function getStateModelStatus(interpreter)
+{
+    console.log(interpreter);
+}
+
 window.onload = function()
 {
     if(scion === undefined)
@@ -15,19 +20,22 @@ window.onload = function()
     let interpreter = new scion.Statechart(stateModel);
     let port = new Port();
 
-    let consoleArea = document.querySelector('.myConsole');
-    //consoleArea.attr('readOnly','true');
-    consoleArea.scrollTop = consoleArea.scrollHeight;
+    let myConsole = document.querySelector("#myConsole");
+    let buttonGo =  document.querySelector("#go");
+    let buttonStart =  document.querySelector("#start");
 
-    document.querySelector('.go').addEventListener("click",()=>
-    {
-        consoleArea.textContent += " 6d6df8d6 ";
-        console.log(consoleArea);
-    },false);
-    
-    $('.start').click(function()
-    { 
-        interpreter.start();
-        //consoleArea.value = "";
-    });
+    buttonStart.addEventListener('click',
+        ()=>
+        {
+            interpreter.start();
+            myConsole.innerHTML = getStateModelStatus(interpreter) + "<br>";
+        }
+        ,false);
+
+    buttonGo.addEventListener('click',
+        ()=>
+        {
+            myConsole.innerHTML += getStateModelStatus(interpreter) + "<br>";
+        }
+        ,false);   
 };
