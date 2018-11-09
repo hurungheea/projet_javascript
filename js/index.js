@@ -1,9 +1,25 @@
 import { stateModel } from "./stateModel.js";
 import { Port } from "./port.js";
 
-function getStateModelStatus(interpreter)
+let myConsole,buttonGo,buttonStart = null;
+
+function logMyConsole(elt)
 {
-    console.log(interpreter);
+    let n = (typeof elt);
+    if(n === "string")
+        myConsole.innerHTML += elt + "<br/>";
+    else
+        elt.forEach(element => 
+            {
+                logMyConsole("\t Active States : " + element);
+            });
+}
+
+function getStateModelStatus(itrprtr)
+{
+    let x = itrprtr.getFullConfiguration();
+    let xToString = x.filter(elt => elt.charAt(0) !== '$');
+    return xToString;
 }
 
 window.onload = function()
@@ -20,22 +36,22 @@ window.onload = function()
     let interpreter = new scion.Statechart(stateModel);
     let port = new Port();
 
-    let myConsole = document.querySelector("#myConsole");
-    let buttonGo =  document.querySelector("#go");
-    let buttonStart =  document.querySelector("#start");
+    myConsole = document.querySelector("#myConsole");
+    buttonGo =  document.querySelector("#go");
+    buttonStart = document.querySelector("#start");
 
     buttonStart.addEventListener('click',
         ()=>
         {
             interpreter.start();
-            myConsole.innerHTML = getStateModelStatus(interpreter) + "<br>";
+            logMyConsole("*** START ***");
         }
         ,false);
 
     buttonGo.addEventListener('click',
         ()=>
         {
-            myConsole.innerHTML += getStateModelStatus(interpreter) + "<br>";
+            logMyConsole(getStateModelStatus(interpreter));
         }
         ,false);   
 };

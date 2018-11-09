@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="My_device_JavaFX.jnlp">
+  <information>
+    <title>My_device_JavaFX</title>
+    <vendor>Franck Barbier</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="My_device_JavaFX.jar" size="5823001" download="eager" />
+    <jar href="lib/PauWare_Java_EE.jar" size="87529" download="eager" />
+  </resources>
+<security>
+  <all-permissions/>
+</security>
+  <applet-desc  width="1200" height="1000" main-class="com.javafx.main.NoJavaFXFallback"  name="My_device_JavaFX" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="1200" height="1000" main-class="_My_device.My_device_main"  name="My_device_JavaFX" />
+  <update check="always"/>
+</jnlp>
