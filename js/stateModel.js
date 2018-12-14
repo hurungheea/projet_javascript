@@ -1,136 +1,173 @@
 export const stateModel =
 {
-    states:
-    [
-        {
-            id:'myDevice',
-            states:
-            [
+  states:
+  [
+    {
+      id : 'mydevice',
+      states :
+      [
+          {
+              id : 'idle',
+              $type:'initial',
+              transitions :
+              [
+                  {
+                      event : 'go',
+                      target : 'busy',
+                  }
+
+              ],
+              onEntry : function()
+              {
+                port.setOpen(true);
+                port.isOpen();
+              }
+          },
+          {
+              id : 'busy',
+              $type:'parallel',
+              onEntry : function()
+              {
+                port.isClosed();
+              },
+              transitions :
+              [
+                  {
+                      event : 'e',
+                      target : 'idle'
+                  },
+                  {
+                      event : 'c',
+                      target : 'S22',
+                  }
+              ],
+              states:
+              [
                 {
-                    id:'idle',
-                    $type:'initial',
-                    transitions:
-                    [
+                  id : 'S1',
+                  transitions:
+                  [
+                    {
+                        event : 'd',
+                        target : 'S21'
+                    },
+                    {
+                        event : 'b',
+                        target : 'S12'
+                    }
+                  ],
+                  states:
+                  [
+                    {
+                      id : 'S11',
+                      onEntry : function(event)
+                      {
+                        console.log("w");
+                      },
+                      onExit : function(event)
+                      {
+                        console.log("x")
+                      }
+                    },
+                    {
+                      id : 'S12',
+                      transitions :
+                      [
                         {
-                            event:'go',
-                            target:'busy'
+                          event : 'g',
+                          target : 'S11'
                         }
-                    ]
+                      ],
+                      onEntry : function(event)
+                      {
+                        console.log("y");
+                      },
+                      onExit : function(event)
+                      {
+                        console.log("z")
+                      }
+                    }
+                  ]
                 },
                 {
-                    id:'busy',
-                    $type:'parallel',
-                    onEntry:function(){port.setOpen(true);},
-                    transitions:
-                    [
-                        {
-                            event:'e',
-                            target:'idle',
-                        },
-                        {
-                            event:'c',
-                            target:'s22'
-                        }
-                    ],
-                    states:
-                    [
-                        {
-                            id:'s1',
-                            transitions:
-                            [
-                                {
-                                    event:'c',
-                                    target:'s12'
-                                },
-                                {
-                                    event:'d',
-                                    target:'s21'
-                                }
-                            ],
-                            states:
-                            [
-                                {
-                                    id:'s11',
-                                    onEntry:(event)=>{console.log("w");},
-                                    onExit:(event)=>{console.log("y");},
-                                },
-                                {
-                                    id:'s12',
-                                    onEntry:(event)=>{console.log("y");},
-                                    onExit:(event)=>{console.log("z");},
-                                    transitions:
-                                    [
-                                        {
-                                            event:'g',
-                                            target:'s11'
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            id:'s2',
-                            states:
-                            [
-                                {
-                                    id:'s21',
-                                    transitions:
-                                    [
-                                        {
-                                            event:'f',
-                                            target:'idle'
-                                        }
-                                    ]
-                                },
-                                {
-                                    id:'s22',
-                                    onEntry:(event)=>{/*this.send({name:'h',data:event});*/}
-                                }
-                            ],
-                        },
-                        {
-                            id:'s3',
-                            $type:'parallel',
-                            transitions:
-                            [
-                                {
-                                    event:'c',
-                                    target:'s12'
-                                }
-                            ],
-                            states:
-                            [
-                                {
-                                    id:'s31',
-                                    transitions:
-                                    [
-                                        {
-                                            event:'h',
-                                            target:'s31',
-                                            onTransition:(event)=>{console.log('a');}
-                                        }
-                                    ]
-                                },
-                                {
-                                    id:'s32',
-                                    onEntry:(event)=>{port.listenTo();}
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            transitions:
-            [
+                  id : 'S2',
+                  states:
+                  [
+                    {
+                      id : 'S22',
+                      onEntry : function(event)
+                      {
+                        //Pas supporté dans cette version
+                        //this.send({name: "h", data:event});
+                      }
+                    },
+                    {
+
+                      id : 'S21',
+                      transitions :
+                      [
+                          {
+                              event : 'f',
+                              target : 'idle'
+                          }
+                      ]
+                    },
+
+                  ]
+                },
                 {
-                    event:'stop',
-                    target:'$final'
+                  id : 'S3',
+                  $type : 'parallel',
+                  transitions :
+                  [
+                      {
+                          event : 'c',
+                          target : 'S12',
+                      }
+                  ],
+                  states:
+                  [
+                    {
+                      id : 'S31',
+                      transitions :
+                      [
+                          {
+                            event : 'h',
+                            target : 'S31',
+                            onTransition:function(event)
+                            {
+                              console.log("a");
+                            }
+                          }
+                      ]
+                    },
+                    {
+                      id : 'S32',
+                      onEntry:function(event)
+                      {
+                        port.listenTo();
+                      }
+                    }
+                  ]
                 }
-            ]
-        },
+              ]
+          },
+        ],
+        transitions :
+        [
+          {
+            event : 'stop',
+            target : '$final'
+          }
+        ]
+      },
+      {
+        id:'$final',
+        $type:'final',
+        onEntry : function()
         {
-            id:'$final',
-            onEntry:(event)=>{port.setOpen(false);}
+          port.setOpen(false);
         }
+      }
     ]
 };

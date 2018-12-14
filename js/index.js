@@ -1,7 +1,65 @@
 import { stateModel } from "./stateModel.js"; // import du state chart Model
 import { Port } from "./port.js"; // import de la variable Port
 
-let myConsole,buttonGo,buttonStart,buttonStop,interpreter,requestsBtn = null; // Déclaration des variables global
+let myConsole,buttonGo,buttonStart,buttonStop,requestsBtn = null; // Déclaration des variables global
+
+let interpreter = new scion.Statechart(stateModel);
+
+interpreter.registerListener(
+    {onTransition:function(source, target, index)
+        {
+            if((source[0] !== '$') && (target[0] !== '$') && (target !== '$final'))
+                logMyConsole("\n\t ELIGIBLE TRANSITION : " + source + " -> "+ target);
+        }
+    }
+);
+
+interpreter.registerListener(
+    {onEntry:function(currState)
+        {
+            if(currState.charAt(0) !== '$')
+            switch(currState)
+            {
+                case currState === "busy":
+                    logMyConsole("\n\tENTRY ACTION: Port.setOpen(Boolean)|result: null");
+                    logMyConsole("\n\t\tinvariant: [Port.isOpen]|true");
+                break;
+
+                case currState === "idle":
+                    logMyConsole("\n\t\tinvariant: [Port.isClosed]|false");
+                break;
+
+                case currState === "S11":
+                    logMyConsole("\n\tENTRY ACTION: My_device.w|result: null");
+                break;
+
+                case currState === "S12":
+                    logMyConsole("\n\tENTRY ACTION: My_device.y|result: null");
+                break;
+
+                case currState === "S22":
+                    logMyConsole("\n\tENTRY ACTION: My_device.request_h|result: null");
+                break;
+
+                case currState === "S32":
+                    logMyConsole("\n\tDO ACTIVITY: Port.listenTo|result: null");
+                break;
+            }
+        }
+    }
+);
+
+interpreter.registerListener(
+    {onExit:function(currState)
+        {
+            logMyConsole("\n\tDESACTIVATED STATE :" + currState);
+            if(currState == 'S11')
+                logMyConsole("\n\tEXIT ACTION: My_device.z|result: null");
+            else if(currState === 'S12')
+                logMyConsole("\n\tEXIT ACTION: My_device.x|result: null");
+        }
+    }
+);
 
 function logMyConsole(elt) // Fonction qui écrit dans la console
 {
@@ -31,7 +89,7 @@ function abonnement()
             {
                 let eventT = event.target.textContent;
                 let nameWNSpace = eventT.replace(/\s/g,'');
-                let fName = name.charAt(name.length - 1).toLowerCase();
+                let fName = nameWNSpace.charAt(nameWNSpace.length - 1).toLowerCase();
                 interpreter.gen({name:fName,data:event});
                 logMyConsole(getStateModelStatus(interpreter));
             },false);
@@ -70,7 +128,6 @@ window.onload = function() // Ecouteur d'événément sur la fenêtre
             footer:'<a style="cursor:pointer;" onclick="document.location.reload(true);">Recharger la page</a>'
         });
     }
-    interpreter = new scion.Statechart(stateModel);
     let port = new Port();
 
     myConsole = document.querySelector("#myConsole");
