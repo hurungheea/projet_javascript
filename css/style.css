@@ -1,57 +1,23 @@
-@font-face
-{
-  font-family: "matrix";
-  src: local('./../font/matrix.ttf');
-}
-
+@font-face{font-family: "matrix";src: local('./../font/matrix.ttf');}
 body,html{margin:0;box-sizing:border-box;}
 html{height: 100vh;width:100vw;}
-body
-{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-}
+body{display: flex;flex-direction: column;flex-wrap: nowrap;}
+#autre{margin: 25px auto;height: 70vh;display:grid;grid-template-columns: 35vw 20vw 20vw;grid-template-rows: 35vh 35vh;grid-template-areas: "a c d" "b c d";}
 
-#autre
-{
-  margin: 25px auto;
-  height: 70vh;
-  display:grid;
-  grid-template-columns: 35vw 35vw;
-  grid-template-rows: 35vh 35vh;
-  grid-template-areas: "a c" "b c" 
-}
+.S1{grid-area: a;background-color: #333333;}
+.S3{grid-area: b;background-color: #4d4d4d;}
+.S2{grid-area: c; background-color: #404040;}
+.idle{grid-area:d;background-color: #333333;}
+.conteneur{display: flex;justify-content: center;align-items: center;}
 
-.S1{grid-area: a;background-color: brown;}
-.S3{grid-area: b;background-color: yellow;}
-.S2{grid-area: c; background-color: purple;}
+#myConsole{color:rgb(0,0,0);font-family: "matrix";font-size: 11pt;  height: 150px;width: 500px;padding: 16px;background-color:rgb(255,255,255);overflow:auto;border: 1px solid rgb(0,0,0);}
+.S2 > .statesImg{height: 45vh;}
+.idle>img{height:20vh;}
+.statesImg{min-height:20vh;max-height:28vh;}
 
 #controlPanel{height: 30%;width: 100%;display:flex;flex-direction: row;justify-content: space-around;  align-items: center;}
-#myConsole
-{
-  color:rgb(0,0,0);
-  font-family: "matrix";
-  font-size: 11pt;
-  height: 150px;
-  width: 500px;
-  padding: 16px;
-  background-color:rgb(255,255,255);
-  overflow:auto;
-  border: 1px solid rgb(0,0,0);
-}
-#globalBtn
-{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  max-width: 300px;
-  background-color: purple;
-}
 
-#requestBtn
-{
-  display: flex;
-  flex-wrap: nowrap;
-}
+/* BUTTON */
+#globalBtn{display: flex;flex-direction: column;justify-content: space-around;align-items: center;max-width: 300px;background-color: purple;}
+#requestBtn{width: 20vw;height: 10vh;display: flex;flex-wrap: nowrap;justify-content: space-evenly;}
+#requestBtn > div{display: flex;flex-direction: column;justify-content: center;align-items: center;}

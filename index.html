@@ -13,34 +13,43 @@
 </head>
 <body>
     <div id="autre">
-        <div class="S1">
-
+        <div class="S1 conteneur">
+            <img class="statesImg" alt="S1" src="./img/S1.png" />
         </div>
-        <div class="S3">
-
+        <div class="S3 conteneur">
+            <img class="statesImg" alt="S3" src="./img/S3.png" />
         </div>
-        <div class="S2">
-
+        <div class="S2 conteneur">
+            <img class="statesImg" alt="S2" src="./img/S2.png" />
+        </div>
+        <div class="idle conteneur">
+            <!-- <img class="statesImg" alt="S2" src="./img/idle.png" /> -->
+            <svg height="150" width="150">
+                <g>
+                    <circle cx="75" cy="75" r="70" stroke="white" stroke-width="3" fill="black" />
+                    <text x="55" y="75" font-family="Verdana" font-size="20" fill="white">Idle</text>
+                </g>
+            </svg> 
         </div>
     </div>
     <div id="controlPanel">
         <div id="myConsole"></div>
         <div id="globalBtn">
             <div id="controlBtn">
-                <button id="start"> START </button>
-                <button id="go"> GO </button>
-                <button id="stop"> STOP </button>
+                <button class="request" id="start"> START </button>
+                <button class="request" id="go"> GO </button>
+                <button class="request" id="stop"> STOP </button>
             </div>
             <div id="requestBtn">
                 <div>
-                    <button class="request"> REQUEST B </button>
-                    <button class="request"> REQUEST E </button>
-                    <button class="request"> REQUEST C </button>
+                    <button class="request" id="b"> REQUEST B </button>
+                    <button class="request" id="e"> REQUEST E </button>
+                    <button class="request" id="c"> REQUEST C </button>
                 </div>
                 <div>
-                    <button class="request"> REQUEST F </button>
-                    <button class="request"> REQUEST D </button>
-                    <button class="request"> REQUEST G </button>
+                    <button class="request" id="f"> REQUEST F </button>
+                    <button class="request" id="d"> REQUEST D </button>
+                    <button class="request" id="g"> REQUEST G </button>
                 </div>
             </div>
         </div>
