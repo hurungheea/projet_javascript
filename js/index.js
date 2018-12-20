@@ -1,13 +1,14 @@
 import { stateModel } from "./stateModel.js"; // import du state chart Model
 import { Port } from "./port.js"; // import de la variable Port
+import { myDom } from "./myDom.js";
 
-let myConsole,buttonGo,buttonStart,buttonStop,interpreter,requestsBtn,myArrows = null; // Déclaration des variables global
+var interpreter = null;
 
 function logMyConsole(elt) // Fonction qui écrit dans la console
 {
-    myConsole.scrollTop = myConsole.scrollHeight;
+    myDom.myConsole.scrollTop = myDom.myConsole.scrollHeight;
     if(typeof elt === "string")// On regarde si l'objet est un string
-        myConsole.innerHTML += elt + "<br/>";// si oui on l'affiche
+        myDom.myConsole.innerHTML += elt + "<br/>";// si oui on l'affiche
     else // sinon on rappelle la fonction avec chaque élément
         elt.forEach(element =>
             {
@@ -39,13 +40,43 @@ function abonnement() // Attache des écouteurs d'événements sur les objets
         }
     );
 
-    buttonStop.addEventListener("click",
+    document.querySelectorAll(".mouseArrow").forEach( /* Traitement sur chanque éléments du tableau */
+        elt =>
+        {
+            elt.addEventListener("mouseenter",
+            (event)=>
+            {
+              var overBtnId = event.target.id;
+              var overArrow = Object.entries(myDom.myArrows).filter(
+                (elt)=>
+                {
+                  return (elt[1].classList[1] === overBtnId);
+                });
+              overArrow[0][1].setAttribute("fill","green");
+            },false);
+
+            elt.addEventListener("mouseout",
+            (event)=>
+            {
+              var overBtnId = event.target.id;
+              var overArrow = Object.entries(myDom.myArrows).filter(
+                (elt)=>
+                {
+                  return (elt[1].classList[1] === overBtnId);
+                });
+              overArrow[0][1].setAttribute("fill","black");
+            },false);
+        }
+    );
+
+    myDom.buttonStop.addEventListener("click",
         ()=>
         {
             logMyConsole("*** STOP ***" + "<br/>");
+            document.querySelector("#conteneur img").src = "./img/LoveMachineStop.gif";
         },false);
 
-    buttonStart.addEventListener('click',
+    myDom.buttonStart.addEventListener('click',
         ()=>
         {
             interpreter.start();
@@ -53,20 +84,27 @@ function abonnement() // Attache des écouteurs d'événements sur les objets
         }
         ,false);
 
-      for(let i = 0;i<myArrows.length;i++)
+      for(let i = 0;i<myDom.myArrows.length;i++)
       {
-        myArrows[i].addEventListener("mouseenter",
+        myDom.myArrows[i].addEventListener("mouseenter",
         (event)=>
         {
           event.target.setAttribute("fill","green");
         },false);
-        myArrows[i].addEventListener("mouseout",
+        myDom.myArrows[i].addEventListener("mouseout",
         (event)=>
         {
           event.target.setAttribute("fill","black");
         },false);
-        myArrows[i].addEventListener("click",handleEvent,false);
+        myDom.myArrows[i].addEventListener("click",handleEvent,false);
       }
+
+      document.getElementById("clearConsole").addEventListener("click",
+      ()=>
+      {
+        myDom.myConsole.innerHTML = " ";
+        console.clear();
+      });
 
 }
 
@@ -83,12 +121,12 @@ window.addEventListener("load",function() // Ecouteur d'événément sur la fen�
     }
     interpreter = new scion.Statechart(stateModel);
     let port = new Port();
-    myConsole = document.querySelector("#myConsole");
-    buttonGo =  document.querySelector("#go");
-    buttonStart = document.querySelector("#start");
-    buttonStop = document.querySelector("#stop");
-    requestsBtn = document.querySelectorAll(".request");
+    myDom.myConsole = document.querySelector("#myConsole");
+    myDom.buttonGo =  document.querySelector("#go");
+    myDom.buttonStart = document.querySelector("#start");
+    myDom.buttonStop = document.querySelector("#stop");
+    myDom.requestsBtn = document.querySelectorAll(".request");
     var objSvg = document.getElementById('ui').contentDocument;
-    myArrows = objSvg.querySelectorAll('path.arrow');
+    myDom.myArrows = objSvg.querySelectorAll('path.arrow');
     abonnement();
 });

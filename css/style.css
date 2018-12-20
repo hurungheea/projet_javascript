@@ -1,27 +1,8 @@
 @font-face{font-family: "matrix";src: local('./../font/matrix.ttf');}
 body,html{margin:0;box-sizing:border-box;}
-#conteneur
-{
-  height: 75vh;
-  width: 100vw;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-#conteneur img
-{
-  height: 350px;
-  width: auto;
-}
-
-#ui
-{
-  max-height: 1046;
-  min-width: auto;
-  max-height: auto;
-  max-width: 75%;
-}
+#conteneur{height: 75vh;width: 100vw;display: flex;justify-content: space-evenly;align-items: center;}
+#conteneur img{height: 40vh;width: auto;}
+#ui{height: 65vh;width: auto;}
 
 #controlPanel
 {
