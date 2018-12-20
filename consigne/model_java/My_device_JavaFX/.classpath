@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="_My_device"/>
+	<classpathentry kind="lib" path="dist/lib/PauWare_Java_EE.jar"/>
+	<classpathentry kind="lib" path="dist/My_device_JavaFX.jar"/>
+	<classpathentry kind="lib" path="dist/run1124976715/lib/PauWare_Java_EE.jar"/>
+	<classpathentry kind="lib" path="dist/run1124976715/My_device_JavaFX.jar"/>
+	<classpathentry kind="lib" path="lib/PauWare_Java_EE.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

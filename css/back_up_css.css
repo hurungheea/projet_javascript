@@ -1,0 +1,32 @@
+@font-face{font-family: "matrix";src: local('./../font/matrix.ttf');}
+
+body,html{margin:0;box-sizing:border-box;}
+html{height: 100vh;width:100vw;}
+body{display: flex;flex-direction: column;flex-wrap: nowrap;}
+
+.conteneur{display: flex;justify-content: center;align-items: center;}
+
+#UI
+{
+  margin-left: auto;
+  margin-right: auto;
+  height:66vh;
+  width: 50vw;
+  background-image: url("./img/interface.png");
+  background-color: inherit;
+}
+
+#UI>img
+{
+  width: auto;
+  height: 66vh;
+  background-color:green;
+}
+
+#myConsole{color:rgb(0,0,0);font-family: "matrix";font-size: 11pt;  height: 150px;width: 500px;padding: 16px;background-color:rgb(255,255,255);overflow:auto;border: 1px solid rgb(0,0,0);}
+#controlPanel{height: 30%;width: 100%;display:flex;flex-direction: row;justify-content: space-around;  align-items: center;}
+
+/* BUTTON */
+#globalBtn{display: flex;flex-direction: column;justify-content: space-around;align-items: center;max-width: 300px;background-color: purple;}
+#requestBtn{width: 20vw;height: 10vh;display: flex;flex-wrap: nowrap;justify-content: space-evenly;}
+#requestBtn > div{display: flex;flex-direction: column;justify-content: center;align-items: center;}

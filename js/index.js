@@ -1,15 +1,15 @@
 import { stateModel } from "./stateModel.js"; // import du state chart Model
 import { Port } from "./port.js"; // import de la variable Port
 
-let myConsole,buttonGo,buttonStart,buttonStop,interpreter,requestsBtn = null; // Déclaration des variables global
+let myConsole,buttonGo,buttonStart,buttonStop,interpreter,requestsBtn,myArrows = null; // Déclaration des variables global
 
 function logMyConsole(elt) // Fonction qui écrit dans la console
 {
     myConsole.scrollTop = myConsole.scrollHeight;
     if(typeof elt === "string")// On regarde si l'objet est un string
-        myConsole.innerHTML += elt + "<br/>";// si oui on l'affiche 
+        myConsole.innerHTML += elt + "<br/>";// si oui on l'affiche
     else // sinon on rappelle la fonction avec chaque élément
-        elt.forEach(element => 
+        elt.forEach(element =>
             {
                 logMyConsole("&nbsp; &nbsp;" + " Active States : " + element);// rapelle réccursivement la fonction.
             });
@@ -23,18 +23,19 @@ function getStateModelStatus(itr) // retourne l'état actuel de l'objet
     return itrToString; // Retourne la chaine de caractère contenant l'objet
 }
 
-function abonnement() // Attache des écouteurs d'événements sur les objets 
+ function handleEvent(event)
+{
+  let name = event.target.id;
+  interpreter.gen(name);
+  logMyConsole(getStateModelStatus(interpreter))
+}
+
+function abonnement() // Attache des écouteurs d'événements sur les objets
 {
     document.querySelectorAll(".request").forEach( /* Traitement sur chanque éléments du tableau */
         elt =>
         {
-            elt.addEventListener("click",
-            (event)=>
-            {
-                let name = event.target.id;
-                interpreter.gen(name);
-                logMyConsole(getStateModelStatus(interpreter));
-            },false);
+            elt.addEventListener("click",handleEvent,false);
         }
     );
 
@@ -50,10 +51,26 @@ function abonnement() // Attache des écouteurs d'événements sur les objets
             interpreter.start();
             logMyConsole("*** START ***" + "<br/>");
         }
-        ,false); 
+        ,false);
+
+      for(let i = 0;i<myArrows.length;i++)
+      {
+        myArrows[i].addEventListener("mouseenter",
+        (event)=>
+        {
+          event.target.setAttribute("fill","green");
+        },false);
+        myArrows[i].addEventListener("mouseout",
+        (event)=>
+        {
+          event.target.setAttribute("fill","black");
+        },false);
+        myArrows[i].addEventListener("click",handleEvent,false);
+      }
+
 }
 
-window.onload = function() // Ecouteur d'événément sur la fenêtre
+window.addEventListener("load",function() // Ecouteur d'événément sur la fenêtre
 {
     if(scion === undefined)
     {
@@ -66,12 +83,12 @@ window.onload = function() // Ecouteur d'événément sur la fenêtre
     }
     interpreter = new scion.Statechart(stateModel);
     let port = new Port();
-
     myConsole = document.querySelector("#myConsole");
     buttonGo =  document.querySelector("#go");
     buttonStart = document.querySelector("#start");
     buttonStop = document.querySelector("#stop");
     requestsBtn = document.querySelectorAll(".request");
-
+    var objSvg = document.getElementById('ui').contentDocument;
+    myArrows = objSvg.querySelectorAll('path.arrow');
     abonnement();
-};
+});

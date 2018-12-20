@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title> Antoine & Alexis </title>
     <link rel="stylesheet" type="text/css" href="./css/style.css"/>
-    
+
     <!-- IMPORTATION DES SCRIPTS -->
     <script type="module" src="./js/index.js"></script>
     <script type="text/javascript" src="./js/scion.js"></script>
@@ -12,47 +12,32 @@
     <script type="text/javascript" src="./js/jquery-v3.3.1.min.js"></script>
 </head>
 <body>
-    <div id="autre">
-        <div class="S1 conteneur">
-            <img class="statesImg" alt="S1" src="./img/S1.png" />
-        </div>
-        <div class="S3 conteneur">
-            <img class="statesImg" alt="S3" src="./img/S3.png" />
-        </div>
-        <div class="S2 conteneur">
-            <img class="statesImg" alt="S2" src="./img/S2.png" />
-        </div>
-        <div class="idle conteneur">
-            <!-- <img class="statesImg" alt="S2" src="./img/idle.png" /> -->
-            <svg height="150" width="150">
-                <g>
-                    <circle cx="75" cy="75" r="70" stroke="white" stroke-width="3" fill="black" />
-                    <text x="55" y="75" font-family="Verdana" font-size="20" fill="white">Idle</text>
-                </g>
-            </svg> 
-        </div>
+  <div id="conteneur">
+    <img alt="image de déco" src="./img/LoveMachineStart.gif" />
+    <object id="ui" data="img/interface.svg" type="image/svg+xml"></object>
+  </div>
+  <div id="controlPanel">
+      <div id="myConsole"></div>
+      <div id="globalBtn">
+          <div id="controlBtn">
+              <button class="request" id="start"> START </button>
+              <button class="request" id="go"> GO </button>
+              <button class="request" id="stop"> STOP </button>
+          </div>
+          <div id="requestBtn">
+              <div>
+                  <button class="request" id="b"> REQUEST B </button>
+                  <button class="request" id="e"> REQUEST E </button>
+                  <button class="request" id="c"> REQUEST C </button>
+              </div>
+              <div>
+                  <button class="request" id="f"> REQUEST F </button>
+                  <button class="request" id="d"> REQUEST D </button>
+                  <button class="request" id="g"> REQUEST G </button>
+              </div>
+          </div>
+          <button> Vider la console </button>
+      </div>
     </div>
-    <div id="controlPanel">
-        <div id="myConsole"></div>
-        <div id="globalBtn">
-            <div id="controlBtn">
-                <button class="request" id="start"> START </button>
-                <button class="request" id="go"> GO </button>
-                <button class="request" id="stop"> STOP </button>
-            </div>
-            <div id="requestBtn">
-                <div>
-                    <button class="request" id="b"> REQUEST B </button>
-                    <button class="request" id="e"> REQUEST E </button>
-                    <button class="request" id="c"> REQUEST C </button>
-                </div>
-                <div>
-                    <button class="request" id="f"> REQUEST F </button>
-                    <button class="request" id="d"> REQUEST D </button>
-                    <button class="request" id="g"> REQUEST G </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
+  </body>
 </html>
