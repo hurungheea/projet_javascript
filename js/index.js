@@ -4,21 +4,22 @@ import { myDom } from "./myDom.js";
 
 var interpreter = null;
 
-function logMyConsole(elt) // Fonction qui écrit dans la console
+function logMyConsole(elt, btnName) // Fonction qui écrit dans la console
 {
-    myDom.myConsole.scrollTop = myDom.myConsole.scrollHeight;
     if(typeof elt === "string")// On regarde si l'objet est un string
-        myDom.myConsole.innerHTML += elt + "<br/>";// si oui on l'affiche
+    {
+      myDom.myConsole.innerHTML += elt + "<br/>";// si oui on l'affiche
+      myDom.myConsole.scrollTop = myDom.myConsole.scrollHeight;
+    }
     else // sinon on rappelle la fonction avec chaque élément
         elt.forEach(element =>
             {
-                logMyConsole("&nbsp; &nbsp;" + " Active States : " + element);// rapelle réccursivement la fonction.
+                logMyConsole("&nbsp; &nbsp;"+ "Resquest -> " + btnName +": Active States : " + element);// rapelle réccursivement la fonction.
             });
 }
 
 function getStateModelStatus(itr) // retourne l'état actuel de l'objet
 {
-    console.log(itr);
     let state = itr.getFullConfiguration(); // Reccupère l'état de l'objet INTERPRETER
     let itrToString = state.filter(elt => elt.charAt(0) !== '$'); // Enlève les états générés automatiquement
     return itrToString; // Retourne la chaine de caractère contenant l'objet
@@ -28,7 +29,7 @@ function getStateModelStatus(itr) // retourne l'état actuel de l'objet
 {
   let name = event.target.id;
   interpreter.gen(name);
-  logMyConsole(getStateModelStatus(interpreter))
+  logMyConsole(getStateModelStatus(interpreter),event.target.textContent)
 }
 
 function abonnement() // Attache des écouteurs d'événements sur les objets
